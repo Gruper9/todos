@@ -3,7 +3,7 @@
 const { createStore } = Redux
 export const SET_TODOS = 'SET_TODOS'
 export const REMOVE_TODOS = 'REMOVE_TODOS'
-export const UPDATE_TODOS = 'UPDATE_TODOS'
+
 /// user
 export const SET_USER = 'SET_USER'
 export const SET_USER_SCORE = 'SET_USER_SCORE'
@@ -17,13 +17,10 @@ function appReducer(state = initialState, action = {}) {
     switch (action.type) {
         case SET_TODOS:
             return { ...state, todos: action.todos }
-
         case REMOVE_TODOS:
             todos = state.todos.filter(todo => todo.id !== action.todoId)
             return { ...state, todos }
-        case UPDATE_TODOS:
-            todos = state.todos.map(todo => todo.id === action.todo.id ? action.todo : todo)
-            return { ...state, todos }
+      
 
         default:
             return state

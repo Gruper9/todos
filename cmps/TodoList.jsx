@@ -4,9 +4,12 @@ import { TodoPreview } from "./TodoPreview.jsx"
 
 
 
-export function TodoList({ todos, onRemoveTodo ,setTodoDoneUndone}) {
+export function TodoList({ todos, onRemoveTodo }) {
    
-
+    function setTodoDoneUndone(todo){
+        todo.isDone =!todo.isDone 
+        todoService.save(todo)
+    }
 
     return (
         <section className="todo-list">

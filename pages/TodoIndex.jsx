@@ -2,9 +2,9 @@
 import { todoService } from "../sevices/todo.service.js"
 import { TodoFilter } from "../cmps/TodoFilter.jsx"
 import { TodoList } from "../cmps/TodoList.jsx"
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import {  SET_TODOS , REMOVE_TODOS,UPDATE_TODOS  } from '../store/store.js'
 
-const { Link } = ReactRouterDOM
 const { useState, useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
 
@@ -23,8 +23,6 @@ export function TodoIndex() {
         }
     }, [filterBy])
 
-
-
     function loadTodos() {
         todoService.query(filterBy)
             .then((todos)=>  {
@@ -35,6 +33,7 @@ export function TodoIndex() {
             .catch((err) => console.log('err:', err))
     }
 
+    
     function onRemoveTodo(todoId) {
         todoService.remove(todoId)
             .then(() => {
@@ -45,11 +44,6 @@ export function TodoIndex() {
                 console.log('Cannot remove todo', err)
                 showErrorMsg('Cannot remove todo')
             })
-    }
-
-    function setTodoDoneUndone(todo){
-        todo.isDone =!todo.isDone 
-        todoService.save(todo).then(dispatch({ type: UPDATE_TODOS, todo }))
     }
 
 
