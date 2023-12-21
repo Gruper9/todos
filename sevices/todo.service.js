@@ -1,6 +1,6 @@
 
 
-import {storageService} from './async-storage.service.js'
+import {storageService} from './storage.service.js'
 import {utilService} from './util.service.js'
 import { asyncStorageService } from './async-storage.service.js'
 
@@ -15,6 +15,7 @@ export const todoService = {
     getEmptyTodo
 }
 
+_createTodos()
 
 function query(filterBy) {
     return asyncStorageService.query(STORAGE_KEY)
@@ -56,4 +57,63 @@ function getEmptyTodo() {
 
 function getDefaultFilter() {
     return { txt: '' ,status:''}
+}
+
+
+function _createTodos() {
+    let todos = storageService.loadFromStorage(STORAGE_KEY)
+    if (!todos || !todos.length) {
+        todos =[{
+            id: utilService.makeId(),
+            subject: "Task 1",
+            createdAt: new Date(),
+            isDone: false,
+            owner: {
+                id: "OwnerID1",
+                fullname: "John Doe"
+            }
+        },
+            {
+            id: utilService.makeId(),
+            subject: "Task 2",
+            createdAt: new Date(),
+            isDone: true,
+            owner: {
+                id: "OwnerID2",
+                fullname: "Jane Doe"
+            }
+        },
+        {
+            id: utilService.makeId(),
+            subject: "Meeting Preparation",
+            createdAt: new Date(),
+            isDone: false,
+            owner: {
+                id: "OwnerID3",
+                fullname: "Alice Johnson"
+            }
+        },
+        {
+            id: utilService.makeId(),
+            subject: "Project Deadline",
+            createdAt: new Date(),
+            isDone: false,
+            owner: {
+                id: "OwnerID4",
+                fullname: "Bob Smith"
+            }
+        },
+        {
+            id: utilService.makeId(),
+            subject: "Grocery Shopping",
+            createdAt: new Date(),
+            isDone: true,
+            owner: {
+                id: "OwnerID5",
+                fullname: "Charlie Brown"
+            }
+        }
+
+        ]
+    }
 }

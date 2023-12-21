@@ -9,7 +9,7 @@ const { useState, useEffect } = React
 
 export function TodoIndex() {
     const [todos, setTodos] = useState(null)
-    const [filterBy, setFilterBy] = useState(TodoService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(todoService.getDefaultFilter())
 
     useEffect(() => {
         loadTodos()
@@ -34,7 +34,7 @@ export function TodoIndex() {
         return (
             <section className="todo-index">
                 <div className="main-layout flex ">
-                    <TodoFolders />
+                    
                     <div className="todo-list-continer">
                           
                             <TodoFilter filterBy={filterBy} onSetFilter={onSetFilter} />
