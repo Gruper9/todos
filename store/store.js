@@ -2,19 +2,15 @@ import { userService } from "../services/user.service.js"
 
 const { createStore } = Redux
 
-
-
-
 /// user
 export const SET_USER = 'SET_USER'
 export const SET_USER_SCORE = 'SET_USER_SCORE'
 
 const initialState = {
     count: 101,
-    cars: [],
+    todos: [],
     loggedinUser: userService.getLoggedinUser(),
-    isCartShown: false,
-    shoppingCart: []
+
 }
 
 function appReducer(state = initialState, action = {}) {
@@ -46,23 +42,6 @@ function appReducer(state = initialState, action = {}) {
             return { ...state, cars }
 
 
-        // shopping cart
-        case SET_CART_IS_SHOWN:
-            return { ...state, isCartShown: action.isCartShown }
-
-        case ADD_CAR_TO_CART:
-            shoppingCart = [...state.shoppingCart, action.car]
-            return { ...state, shoppingCart }
-
-        case ADD_CAR_TO_CART:
-            shoppingCart = [...state.shoppingCart, action.car]
-            return { ...state, shoppingCart }
-
-        case REMOVE_CAR_FROM_CART:
-            shoppingCart = state.shoppingCart.filter(car => car._id !== action.carId)
-            return { ...state, shoppingCart }
-        case CLEAR_CART:
-            return { ...state, shoppingCart: [] }
 
         // user
         case SET_USER:
