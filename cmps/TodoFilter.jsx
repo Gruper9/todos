@@ -43,7 +43,7 @@ export function TodoFilter({ filterBy, onSetFilter }) {
         <section className="todo-filter">
            
             <form onSubmit={onSetFilterBy} className="search-todo">
-                <input value={txt} onChange={handleChange} type="text"  name="txt" placeholder="search in your inbox"/>
+                <input value={txt} onChange={handleChange} type="text"  name="txt" placeholder="search"/>
     
             </form>
         </section>

@@ -10,8 +10,8 @@ export function TodoPreview({ todo, onRemoveTodo, setTodoDone }) {
            
         <div className="todo-info" onClick={() => setTodoDone(todo)}>
             <span className="todo-subject" >{todo.subject}</span>
+             <button className="delete-btn" title="remove todo" onClick={() => onRemoveTodo(todo.id)}>x</button>
             </div>
-             <button classname="delete-btn" title="remove todo" onClick={() => onRemoveTodo(todo.id)}>x</button>
         </section>
     )
 

@@ -34,7 +34,6 @@ export function TodoIndex() {
         return (
             <section className="todo-index">
                 <div className="main-layout flex ">
-                    
                     <div className="todo-list-continer">
                           
                             <TodoFilter filterBy={filterBy} onSetFilter={onSetFilter} />
