@@ -20,6 +20,8 @@ _createTodos()
 function query(filterBy) {
     return asyncStorageService.query(STORAGE_KEY)
         .then(todos => {
+            if (filterBy.status === "done") todos = todos.filter(todo => todo.isDone)
+            if (filterBy.status === "active") todos = todos.filter(todo => !todo.isDone)
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 todos = todos.filter(todo => regExp.test(todo.subject))
@@ -34,7 +36,7 @@ function remove(todoId) {
     return asyncStorageService.remove(STORAGE_KEY, todoId)
 }
 function save(todo) {
-    if (todo._id) {
+    if (todo.id) {
         return asyncStorageService.put(STORAGE_KEY, todo)
     } else {
         return asyncStorageService.post(STORAGE_KEY, todo)
@@ -45,7 +47,7 @@ function getEmptyTodo() {
     return {
         id: utilService.makeId(),
         subject,
-        createdAt,
+        createdAt: Date.now(),
         isDone,
         owner: {
             id,

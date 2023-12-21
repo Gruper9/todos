@@ -3,6 +3,7 @@
 @import './cmps/AppFooter.css';
 @import './cmps/loader.css';
 @import './cmps/TodoIndex.css';
+@import './cmps/TodoPreview.css';
 
 body {
     max-width: 600px;

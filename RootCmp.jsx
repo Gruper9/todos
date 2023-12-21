@@ -15,7 +15,7 @@ import { store } from './store/store.js'
 export function App() {
     return(
         <section>
-        {/*  <Provider store={store}> */}
+         <Provider store={store}>
         <Router>
             <div>
                 <AppHeader />
@@ -31,7 +31,7 @@ export function App() {
                 <AppFooter />
             </div>
         </Router>
-        {/* </Provider> */}
+        </Provider>
         </section>
     )
 }

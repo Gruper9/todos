@@ -2,13 +2,18 @@
 import { todoService } from "../sevices/todo.service.js"
 import { TodoFilter } from "../cmps/TodoFilter.jsx"
 import { TodoList } from "../cmps/TodoList.jsx"
-
+import {  SET_TODOS , REMOVE_TODOS,UPDATE_TODOS  } from '../store/store.js'
 
 const { Link } = ReactRouterDOM
 const { useState, useEffect } = React
+const { useSelector, useDispatch } = ReactRedux
 
 export function TodoIndex() {
-    const [todos, setTodos] = useState(null)
+    const dispatch = useDispatch()
+
+    const todos = useSelector(storeState => storeState.todos)
+
+    // const [todos, setTodos] = useState(null)
     const [filterBy, setFilterBy] = useState(todoService.getDefaultFilter())
 
     useEffect(() => {
@@ -22,9 +27,31 @@ export function TodoIndex() {
 
     function loadTodos() {
         todoService.query(filterBy)
-            .then((todos) => setTodos(todos))
+            .then((todos)=>  {
+                // setCars(cars)
+                dispatch({ type: SET_TODOS, todos })
+                console.log(todos)
+            } )
             .catch((err) => console.log('err:', err))
     }
+
+    function onRemoveTodo(todoId) {
+        todoService.remove(todoId)
+            .then(() => {
+                dispatch({ type: REMOVE_TODOS, todoId })
+                showSuccessMsg('todo removed')
+            })
+            .catch(err => {
+                console.log('Cannot remove todo', err)
+                showErrorMsg('Cannot remove todo')
+            })
+    }
+
+    function setTodoDoneUndone(todo){
+        todo.isDone =!todo.isDone 
+        todoService.save(todo).then(dispatch({ type: UPDATE_TODOS, todo }))
+    }
+
 
     function onSetFilter(filterBy) {
         setFilterBy(filterBy)
@@ -38,7 +65,7 @@ export function TodoIndex() {
                           
                             <TodoFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                        
-                        <TodoList todos={todos} loadTodos={loadTodos} />
+                        <TodoList todos={todos} setTodoDoneUndone={setTodoDoneUndone} loadTodos={loadTodos} onRemoveTodo={onRemoveTodo} />
                     </div>
                 </div>
             </section>
